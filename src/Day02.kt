@@ -7,11 +7,21 @@ fun main() {
 
 private fun String.convertToRange(): LongRange = this.split("-").let { LongRange(it[0].toLong(), it[1].toLong()) }
 
-private fun filterInvalidIds(n: LongRange): List<Long> =
-    n.filter { int ->
-        val s = int.toString()
-        if (s.length % 2 != 0) return@filter false
-        val half = s.length / 2
+private fun filterInvalidIds(range: LongRange): List<Long> =
+    range.filter { n ->
+        val s = n.toString()
+        val len = s.length
 
-        s.substring(0, half) == s.substring(half)
+        for (blockSize in 1..(len / 2)) {
+            if (len % blockSize != 0) continue
+
+            val block = s.substring(0, blockSize)
+            val repeats = len / blockSize
+
+            if (repeats >= 2 && block.repeat(repeats) == s) {
+                return@filter true
+            }
+        }
+
+        false
     }
