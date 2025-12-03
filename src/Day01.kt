@@ -3,7 +3,7 @@ fun main() {
     println(part2(readInput("day1")))
 }
 
-fun part1(input: List<String>): Int {
+private fun part1(input: List<String>): Int {
     val acc = CircularInt()
 
     return input.map { rotation ->
@@ -17,7 +17,7 @@ fun part1(input: List<String>): Int {
     }.count { it == 0 }
 }
 
-fun part2(input: List<String>): Int {
+private fun part2(input: List<String>): Int {
     val acc = CircularInt()
 
     input.forEach { rotation ->
